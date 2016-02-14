@@ -1,0 +1,4 @@
+# Ignore files and directory
+.idea/
+target/*
+hexagonal-rss.iml
