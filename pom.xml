@@ -8,6 +8,11 @@
 
    <properties>
       <dropwizard.version>0.9.2</dropwizard.version>
+      <rome.version>1.5.1</rome.version>
+
+      <junit.version>4.11</junit.version>
+      <assertj-core-java8.version>1.0.0m1</assertj-core-java8.version>
+
    </properties>
 
    <dependencies>
@@ -16,17 +21,24 @@
          <artifactId>dropwizard-core</artifactId>
          <version>${dropwizard.version}</version>
       </dependency>
+      <dependency>
+         <groupId>com.rometools</groupId>
+         <artifactId>rome</artifactId>
+         <version>${rome.version}</version>
+      </dependency>
+
+
 
       <dependency>
          <groupId>junit</groupId>
          <artifactId>junit</artifactId>
-         <version>4.11</version>
+         <version>${junit.version}</version>
          <scope>test</scope>
       </dependency>
       <dependency>
          <groupId>org.assertj</groupId>
          <artifactId>assertj-core-java8</artifactId>
-         <version>1.0.0m1</version>
+         <version>${assertj-core-java8.version}</version>
          <scope>test</scope>
       </dependency>
    </dependencies>

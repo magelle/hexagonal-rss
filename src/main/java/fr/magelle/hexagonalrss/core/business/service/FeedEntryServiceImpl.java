@@ -49,17 +49,15 @@ public class FeedEntryServiceImpl implements FeedEntryService {
     }
 
     public void retrieveNewFeeds() {
-        feedCatalog.findAll().forEach(feed ->
-            feedEntryCatalog.save(
-                    feedSynchronize.getFeedEntriesFromURLAfter(feed.getUrl(), feed.getLastUpdate())
-            )
-        );
+        feedCatalog.findAll().forEach(feed -> this.retrieveNewFeeds(feed.getId()));
     }
 
     public void retrieveNewFeeds(Long feedId) {
         Feed feed = feedCatalog.findById(feedId);
-        feedEntryCatalog.save(
-                feedSynchronize.getFeedEntriesFromURLAfter(feed.getUrl(), feed.getLastUpdate())
+        List<FeedEntry> newFeedEntries = feedSynchronize.getFeedEntriesFromURLAfter(feed.getUrl(), feed.getLastUpdate());
+        newFeedEntries.forEach(feedEntry ->
+                feedEntry.setFeedId(feedId)
         );
+        feedEntryCatalog.save(newFeedEntries);
     }
 }
