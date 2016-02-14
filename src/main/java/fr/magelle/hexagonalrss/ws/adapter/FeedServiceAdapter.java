@@ -10,8 +10,9 @@ public class FeedServiceAdapter {
     private FeedService feedService;
     private CoreFeedToWsFeedMapper coreFeedToWsFeedMapper;
 
-    public FeedServiceAdapter(FeedService feedService) {
+    public FeedServiceAdapter(FeedService feedService, CoreFeedToWsFeedMapper coreFeedToWsFeedMapper) {
         this.feedService = feedService;
+        this.coreFeedToWsFeedMapper = coreFeedToWsFeedMapper;
     }
 
     public Feed get(Long id) {
