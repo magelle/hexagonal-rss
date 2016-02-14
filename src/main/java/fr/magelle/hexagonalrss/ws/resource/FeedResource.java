@@ -1,7 +1,7 @@
 package fr.magelle.hexagonalrss.ws.resource;
 
 import com.codahale.metrics.annotation.Timed;
-import fr.magelle.hexagonalrss.ws.adapter.FeedServiceAdapter;
+import fr.magelle.hexagonalrss.ws.adapter.service.FeedServiceAdapter;
 import fr.magelle.hexagonalrss.ws.api.Feed;
 
 import javax.ws.rs.*;

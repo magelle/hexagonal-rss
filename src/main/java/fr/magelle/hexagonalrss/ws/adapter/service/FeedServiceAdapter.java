@@ -1,6 +1,7 @@
-package fr.magelle.hexagonalrss.ws.adapter;
+package fr.magelle.hexagonalrss.ws.adapter.service;
 
 import fr.magelle.hexagonalrss.core.api.service.FeedService;
+import fr.magelle.hexagonalrss.ws.adapter.mapper.CoreFeedToWsFeedMapper;
 import fr.magelle.hexagonalrss.ws.api.Feed;
 
 import java.util.List;

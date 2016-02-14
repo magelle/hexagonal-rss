@@ -20,6 +20,7 @@ public class Feed {
     }
 
     public Feed(Long id, String name, String url, LocalDateTime lastUpdate) {
+        this();
         this.id = id;
         this.name = name;
         this.url = url;

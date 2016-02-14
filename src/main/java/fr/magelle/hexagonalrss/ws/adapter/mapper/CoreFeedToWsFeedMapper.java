@@ -1,4 +1,4 @@
-package fr.magelle.hexagonalrss.ws.adapter;
+package fr.magelle.hexagonalrss.ws.adapter.mapper;
 
 
 import fr.magelle.hexagonalrss.ws.api.Feed;
