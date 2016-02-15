@@ -82,6 +82,9 @@
   </dependencies>
   <properties>
     <dropwizard.version>0.9.2</dropwizard.version>
+    <rome.version>1.5.1</rome.version>
+    <assertj-core-java8.version>1.0.0m1</assertj-core-java8.version>
+    <junit.version>4.11</junit.version>
   </properties>
 </project>
 
