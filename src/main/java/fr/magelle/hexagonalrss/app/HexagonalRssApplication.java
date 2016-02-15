@@ -1,6 +1,7 @@
 package fr.magelle.hexagonalrss.app;
 
 import fr.magelle.hexagonalrss.app.config.HexagonalRssConfiguration;
+import fr.magelle.hexagonalrss.app.config.LiquibaseConfiguration;
 import fr.magelle.hexagonalrss.app.config.metrics.InstanceNameHealthCheck;
 import fr.magelle.hexagonalrss.core.api.service.FeedEntryService;
 import fr.magelle.hexagonalrss.core.api.service.FeedService;
@@ -24,7 +25,17 @@ import io.dropwizard.Application;
 import io.dropwizard.jdbi.DBIFactory;
 import io.dropwizard.setup.Bootstrap;
 import io.dropwizard.setup.Environment;
+import liquibase.Liquibase;
+import liquibase.database.Database;
+import liquibase.database.DatabaseFactory;
+import liquibase.database.jvm.JdbcConnection;
+import liquibase.exception.DatabaseException;
+import liquibase.exception.LiquibaseException;
+import liquibase.resource.FileSystemResourceAccessor;
 import org.skife.jdbi.v2.DBI;
+
+import java.sql.Connection;
+import java.sql.SQLException;
 
 /**
  *
@@ -50,7 +61,8 @@ public class HexagonalRssApplication extends Application<HexagonalRssConfigurati
 
         // Database
         final DBIFactory factory = new DBIFactory();
-        final DBI jdbi = factory.build(environment, configuration.getDataSourceFactory(), "h2");
+        final DBI jdbi = factory.build(environment, configuration.getDataSourceFactory(), "db");
+        updateDatabase(jdbi, configuration.getLiquibaseConfiguration());
         final FeedDAO feedDAO = jdbi.onDemand(FeedDAO.class);
         final FeedEntryDAO feedEntryDAO = jdbi.onDemand(FeedEntryDAO.class);
 
@@ -80,6 +92,26 @@ public class HexagonalRssApplication extends Application<HexagonalRssConfigurati
 
         final InstanceNameHealthCheck healthCheck = new InstanceNameHealthCheck(configuration.getInstanceName());
         environment.healthChecks().register("instanceName", healthCheck);
+    }
+
+    public void updateDatabase(DBI jdbi, LiquibaseConfiguration configuration) throws DatabaseException {
+        Connection connection = jdbi.open().getConnection();
+        try {
+            Database database = DatabaseFactory.getInstance().findCorrectDatabaseImplementation(new JdbcConnection(connection));
+            Liquibase liquibase = new Liquibase(configuration.getChangelogPath(), new FileSystemResourceAccessor(), database);
+            liquibase.update(configuration.getContext());
+        } catch (LiquibaseException e) {
+            throw new DatabaseException(e);
+        } finally {
+            if (connection != null) {
+                try {
+                    connection.rollback();
+                    connection.close();
+                } catch (SQLException e) {
+                    //nothing to do
+                }
+            }
+        }
     }
 }
 

@@ -13,12 +13,18 @@ import javax.validation.constraints.NotNull;
  */
 public class HexagonalRssConfiguration extends Configuration {
 
-    @Valid
-    @NotNull
-    private DataSourceFactory database = new DataSourceFactory();
-
     @NotEmpty
     private String instanceName;
+
+    @Valid
+    @NotNull
+    @JsonProperty("database")
+    private DataSourceFactory database = new DataSourceFactory();
+
+    @Valid
+    @NotNull
+    @JsonProperty("liquibase")
+    private LiquibaseConfiguration liquibaseConfiguration;
 
     public String getInstanceName() {
         return instanceName;
@@ -28,13 +34,19 @@ public class HexagonalRssConfiguration extends Configuration {
         this.instanceName = instanceName;
     }
 
-    @JsonProperty("database")
     public void setDataSourceFactory(DataSourceFactory factory) {
         this.database = factory;
     }
 
-    @JsonProperty("database")
     public DataSourceFactory getDataSourceFactory() {
         return database;
+    }
+
+    public LiquibaseConfiguration getLiquibaseConfiguration() {
+        return liquibaseConfiguration;
+    }
+
+    public void setLiquibaseConfiguration(LiquibaseConfiguration liquibaseConfiguration) {
+        this.liquibaseConfiguration = liquibaseConfiguration;
     }
 }

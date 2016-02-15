@@ -5,3 +5,7 @@ database:
   user:
   password:
   url: jdbc:h2:mem:jhipster;DB_CLOSE_DELAY=-1
+
+liquibase:
+  context: dev
+  changelog: src/main/resources/config/liquibase/master.xml

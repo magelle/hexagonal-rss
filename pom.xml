@@ -10,6 +10,7 @@
         <dropwizard.version>0.9.2</dropwizard.version>
         <rome.version>1.5.1</rome.version>
         <h2.version>1.4.191</h2.version>
+        <liquibase.version>3.3.2</liquibase.version>
 
         <junit.version>4.11</junit.version>
         <assertj-core-java8.version>1.0.0m1</assertj-core-java8.version>
@@ -31,6 +32,17 @@
             <groupId>com.h2database</groupId>
             <artifactId>h2</artifactId>
             <version>${h2.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.liquibase</groupId>
+            <artifactId>liquibase-core</artifactId>
+            <version>${liquibase.version}</version>
+            <exclusions>
+                <exclusion>
+                    <artifactId>jetty-servlet</artifactId>
+                    <groupId>org.eclipse.jetty</groupId>
+                </exclusion>
+            </exclusions>
         </dependency>
         <dependency>
             <groupId>com.rometools</groupId>

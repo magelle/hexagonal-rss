@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.1.xsd">
+
+    <changeSet id="00000000000000" author="magelle">
+
+        <createTable tableName="FEED">
+            <column name="id" type="bigint" autoIncrement="true">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="name" type="varchar(100)">
+                <constraints nullable="false" />
+            </column>
+            <column name="url" type="varchar(100)">
+                <constraints nullable="false" />
+            </column>
+            <column name="last_update" type="timestamp">
+                <constraints nullable="true" />
+            </column>
+        </createTable>
+
+        <createTable tableName="FEED_ENTRY">
+            <column name="id" type="bigint" autoIncrement="true">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="feed_id" type="bigint">
+                <constraints nullable="false" />
+            </column>
+            <column name="title" type="varchar(100)">
+                <constraints nullable="false" />
+            </column>
+            <column name="content" type="clob">
+                <constraints nullable="true" />
+            </column>
+            <column name="url" type="varchar(100)">
+                <constraints nullable="true" />
+            </column>
+            <column name="is_read" type="boolean">
+                <constraints nullable="true" />
+            </column>
+        </createTable>
+
+        <addForeignKeyConstraint baseColumnNames="feed_id"
+                                 baseTableName="FEED_ENTRY"
+                                 constraintName="fk_feed_entry__feed_id"
+                                 referencedColumnNames="id"
+                                 referencedTableName="FEED"/>
+    </changeSet>
+
+</databaseChangeLog>
