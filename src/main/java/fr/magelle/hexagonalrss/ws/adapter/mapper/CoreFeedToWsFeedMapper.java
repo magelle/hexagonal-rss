@@ -9,7 +9,7 @@ import java.util.stream.Collectors;
 
 public class CoreFeedToWsFeedMapper {
 
-    public Feed wsFeedFromCoreFeed(fr.magelle.hexagonalrss.core.api.dto.Feed coreFeed) {
+    public Feed wsFeedFromCoreFeed(fr.magelle.hexagonalrss.core.dto.Feed coreFeed) {
         return new Feed(
                 coreFeed.getId(),
                 coreFeed.getName(),
@@ -18,14 +18,14 @@ public class CoreFeedToWsFeedMapper {
         );
     }
 
-    public List<Feed> wsFeedsFromCodeFeeds(Collection<fr.magelle.hexagonalrss.core.api.dto.Feed> coreFeeds) {
+    public List<Feed> wsFeedsFromCodeFeeds(Collection<fr.magelle.hexagonalrss.core.dto.Feed> coreFeeds) {
         return coreFeeds.stream()
                 .map(this::wsFeedFromCoreFeed)
                 .collect(Collectors.toList());
     }
 
-    public fr.magelle.hexagonalrss.core.api.dto.Feed coreFeedFromWsFeed(Feed wsFeed) {
-        return new fr.magelle.hexagonalrss.core.api.dto.Feed(
+    public fr.magelle.hexagonalrss.core.dto.Feed coreFeedFromWsFeed(Feed wsFeed) {
+        return new fr.magelle.hexagonalrss.core.dto.Feed(
                 wsFeed.getId(),
                 wsFeed.getName(),
                 wsFeed.getUrl()

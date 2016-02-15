@@ -1,19 +1,19 @@
-package fr.magelle.hexagonalrss.datasource;
+package fr.magelle.hexagonalrss.core.spi.impl;
 
 
-import fr.magelle.hexagonalrss.core.api.dto.FeedEntry;
-import fr.magelle.hexagonalrss.core.spi.FeedEntryCatalog;
+import fr.magelle.hexagonalrss.core.dto.FeedEntry;
+import fr.magelle.hexagonalrss.core.spi.FeedEntryRepository;
 
 import java.util.*;
 import java.util.stream.Collectors;
 
-public class InMemoryFeedEntryCatalog implements FeedEntryCatalog {
+public class MapFeedEntryRepository implements FeedEntryRepository {
 
     private Map<Long, FeedEntry> feedEntryMap;
     private long lastId = 0;
 
-    public InMemoryFeedEntryCatalog() {
-        feedEntryMap = new HashMap();
+    public MapFeedEntryRepository() {
+        feedEntryMap = new HashMap<>();
     }
 
     @Override

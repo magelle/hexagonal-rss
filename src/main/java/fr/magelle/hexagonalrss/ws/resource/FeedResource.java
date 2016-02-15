@@ -47,7 +47,7 @@ public class FeedResource {
     }
 
     @DELETE
-    @Path("/feed/delete")
+    @Path("/feed/deleteById")
     @Timed
     public void deleteFeed(@QueryParam("id") Long id) {
         feedService.delete(id);

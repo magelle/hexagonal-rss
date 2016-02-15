@@ -1,9 +1,9 @@
 package fr.magelle.hexagonalrss.core.business.service;
 
-import fr.magelle.hexagonalrss.core.api.dto.Feed;
+import fr.magelle.hexagonalrss.core.dto.Feed;
 import fr.magelle.hexagonalrss.core.api.service.FeedService;
-import fr.magelle.hexagonalrss.core.spi.FeedCatalog;
-import fr.magelle.hexagonalrss.core.spi.FeedEntryCatalog;
+import fr.magelle.hexagonalrss.core.spi.FeedRepository;
+import fr.magelle.hexagonalrss.core.spi.FeedEntryRepository;
 import fr.magelle.hexagonalrss.core.spi.FeedSynchronize;
 
 import java.util.List;
@@ -13,31 +13,31 @@ import java.util.List;
  */
 public class FeedServiceImpl implements FeedService {
 
-    private FeedCatalog feedCatalog;
-    private FeedEntryCatalog feedEntryCatalog;
+    private FeedRepository feedRepository;
+    private FeedEntryRepository feedEntryRepository;
     private FeedSynchronize feedSynchronize;
 
-    public FeedServiceImpl(FeedCatalog feedCatalog) {
-        this.feedCatalog = feedCatalog;
+    public FeedServiceImpl(FeedRepository feedRepository) {
+        this.feedRepository = feedRepository;
     }
 
     public Feed add(Feed feed) {
-        return feedCatalog.save(feed);
+        return feedRepository.save(feed);
     }
 
     public Feed update(Feed feed) {
-        return feedCatalog.update(feed);
+        return feedRepository.update(feed);
     }
 
     public void delete(Long feedId) {
-        feedCatalog.delete(feedId);
+        feedRepository.delete(feedId);
     }
 
     public List<Feed> getAll() {
-        return feedCatalog.findAll();
+        return feedRepository.findAll();
     }
 
     public Feed get(Long id) {
-        return feedCatalog.findById(id);
+        return feedRepository.findById(id);
     }
 }

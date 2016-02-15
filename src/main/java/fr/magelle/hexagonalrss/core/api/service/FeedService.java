@@ -1,7 +1,7 @@
 package fr.magelle.hexagonalrss.core.api.service;
 
 
-import fr.magelle.hexagonalrss.core.api.dto.Feed;
+import fr.magelle.hexagonalrss.core.dto.Feed;
 
 import java.util.List;
 

@@ -1,13 +1,13 @@
 package fr.magelle.hexagonalrss.core.spi;
 
-import fr.magelle.hexagonalrss.core.api.dto.Feed;
+import fr.magelle.hexagonalrss.core.dto.Feed;
 
 import java.util.List;
 
 /**
  * Store Feeds
  */
-public interface FeedCatalog {
+public interface FeedRepository {
 
     Feed save(Feed feed);
     Feed update(Feed feed);

@@ -1,4 +1,4 @@
-package fr.magelle.hexagonalrss.core.api.dto;
+package fr.magelle.hexagonalrss.core.dto;
 
 /**
  * An entry of a feed
@@ -19,6 +19,11 @@ public class FeedEntry {
         this.content = content;
         this.url = url;
         this.isRead = false;
+    }
+
+    public FeedEntry(Long id, Long feedId, String title, String content, String url, boolean isRead) {
+        this(id, feedId, title, content, url);
+        this.isRead = isRead;
     }
 
     public Long getId() {

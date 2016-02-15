@@ -1,7 +1,7 @@
 package fr.magelle.hexagonalrss.core.spi.impl;
 
-import fr.magelle.hexagonalrss.core.api.dto.Feed;
-import fr.magelle.hexagonalrss.core.spi.FeedCatalog;
+import fr.magelle.hexagonalrss.core.dto.Feed;
+import fr.magelle.hexagonalrss.core.spi.FeedRepository;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -9,17 +9,17 @@ import java.util.List;
 import java.util.Map;
 
 
-public class MapFeedCatalog implements FeedCatalog {
+public class MapFeedRepository implements FeedRepository {
 
     private Map<Long, Feed> feeds;
     private long lastId = 0;
 
-    public MapFeedCatalog() {
-        feeds = new HashMap();
+    public MapFeedRepository() {
+        feeds = new HashMap<>();
     }
 
     public Feed save(Feed feed) {
-        feed.setId(Long.valueOf(++lastId));
+        feed.setId(++lastId);
         feeds.put(feed.getId(), feed);
         return feed;
     }
@@ -33,7 +33,7 @@ public class MapFeedCatalog implements FeedCatalog {
     }
 
     public List<Feed> findAll() {
-        return new ArrayList(feeds.values());
+        return new ArrayList<>(feeds.values());
     }
 
     @Override

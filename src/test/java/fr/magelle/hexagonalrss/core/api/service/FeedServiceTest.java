@@ -1,9 +1,9 @@
 package fr.magelle.hexagonalrss.core.api.service;
 
-import fr.magelle.hexagonalrss.core.api.dto.Feed;
+import fr.magelle.hexagonalrss.core.dto.Feed;
 import fr.magelle.hexagonalrss.core.business.service.FeedServiceImpl;
-import fr.magelle.hexagonalrss.core.spi.FeedCatalog;
-import fr.magelle.hexagonalrss.core.spi.impl.MapFeedCatalog;
+import fr.magelle.hexagonalrss.core.spi.FeedRepository;
+import fr.magelle.hexagonalrss.core.spi.impl.MapFeedRepository;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -20,8 +20,8 @@ public class FeedServiceTest {
 
     @Before
     public void setUp() {
-        FeedCatalog feedCatalog = new MapFeedCatalog();
-        feedService = new FeedServiceImpl(feedCatalog);
+        FeedRepository feedRepository = new MapFeedRepository();
+        feedService = new FeedServiceImpl(feedRepository);
     }
 
     @Test

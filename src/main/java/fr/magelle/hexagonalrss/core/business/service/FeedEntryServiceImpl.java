@@ -1,10 +1,10 @@
 package fr.magelle.hexagonalrss.core.business.service;
 
-import fr.magelle.hexagonalrss.core.api.dto.Feed;
-import fr.magelle.hexagonalrss.core.api.dto.FeedEntry;
+import fr.magelle.hexagonalrss.core.dto.Feed;
+import fr.magelle.hexagonalrss.core.dto.FeedEntry;
 import fr.magelle.hexagonalrss.core.api.service.FeedEntryService;
-import fr.magelle.hexagonalrss.core.spi.FeedCatalog;
-import fr.magelle.hexagonalrss.core.spi.FeedEntryCatalog;
+import fr.magelle.hexagonalrss.core.spi.FeedRepository;
+import fr.magelle.hexagonalrss.core.spi.FeedEntryRepository;
 import fr.magelle.hexagonalrss.core.spi.FeedSynchronize;
 
 import java.util.List;
@@ -14,50 +14,50 @@ import java.util.List;
  */
 public class FeedEntryServiceImpl implements FeedEntryService {
 
-    private FeedCatalog feedCatalog;
-    private FeedEntryCatalog feedEntryCatalog;
+    private FeedRepository feedRepository;
+    private FeedEntryRepository feedEntryRepository;
     private FeedSynchronize feedSynchronize;
 
-    public FeedEntryServiceImpl(FeedCatalog feedCatalog, FeedEntryCatalog feedEntryCatalog, FeedSynchronize feedSynchronize) {
-        this.feedCatalog = feedCatalog;
-        this.feedEntryCatalog = feedEntryCatalog;
+    public FeedEntryServiceImpl(FeedRepository feedRepository, FeedEntryRepository feedEntryRepository, FeedSynchronize feedSynchronize) {
+        this.feedRepository = feedRepository;
+        this.feedEntryRepository = feedEntryRepository;
         this.feedSynchronize = feedSynchronize;
     }
 
     public List<FeedEntry> getAllEntries() {
-        return feedEntryCatalog.findAll();
+        return feedEntryRepository.findAll();
     }
 
     public List<FeedEntry> getAllEntriesOfFeed(Long feedId) {
-        return feedEntryCatalog.findByFeedId(feedId);
+        return feedEntryRepository.findByFeedId(feedId);
     }
 
     public List<FeedEntry> getUnreadEntries() {
-        return feedEntryCatalog.findByIsReadFalse();
+        return feedEntryRepository.findByIsReadFalse();
     }
 
     public List<FeedEntry> getUnreadEntriesOfFeed(Long feedId) {
-        return feedEntryCatalog.findByFeedIdAndIsReadFalse(feedId);
+        return feedEntryRepository.findByFeedIdAndIsReadFalse(feedId);
     }
 
     public void markEntryAsRead(Long feedEntryId) {
-        feedEntryCatalog.markAsReadById(feedEntryId);
+        feedEntryRepository.markAsReadById(feedEntryId);
     }
 
     public void markEntriesOfFeedAsRead(Long feedId) {
-        feedEntryCatalog.markAsReadByFeedId(feedId);
+        feedEntryRepository.markAsReadByFeedId(feedId);
     }
 
     public void retrieveNewFeeds() {
-        feedCatalog.findAll().forEach(feed -> this.retrieveNewFeeds(feed.getId()));
+        feedRepository.findAll().forEach(feed -> this.retrieveNewFeeds(feed.getId()));
     }
 
     public void retrieveNewFeeds(Long feedId) {
-        Feed feed = feedCatalog.findById(feedId);
+        Feed feed = feedRepository.findById(feedId);
         List<FeedEntry> newFeedEntries = feedSynchronize.getFeedEntriesFromURLAfter(feed.getUrl(), feed.getLastUpdate());
         newFeedEntries.forEach(feedEntry ->
                 feedEntry.setFeedId(feedId)
         );
-        feedEntryCatalog.save(newFeedEntries);
+        feedEntryRepository.save(newFeedEntries);
     }
 }

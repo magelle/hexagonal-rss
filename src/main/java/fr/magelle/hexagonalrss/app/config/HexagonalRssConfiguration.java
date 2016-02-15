@@ -1,12 +1,21 @@
 package fr.magelle.hexagonalrss.app.config;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
 import io.dropwizard.Configuration;
+import io.dropwizard.db.DataSourceFactory;
 import org.hibernate.validator.constraints.NotEmpty;
+
+import javax.validation.Valid;
+import javax.validation.constraints.NotNull;
 
 /**
  * Application configuration
  */
 public class HexagonalRssConfiguration extends Configuration {
+
+    @Valid
+    @NotNull
+    private DataSourceFactory database = new DataSourceFactory();
 
     @NotEmpty
     private String instanceName;
@@ -17,5 +26,15 @@ public class HexagonalRssConfiguration extends Configuration {
 
     public void setInstanceName(String instanceName) {
         this.instanceName = instanceName;
+    }
+
+    @JsonProperty("database")
+    public void setDataSourceFactory(DataSourceFactory factory) {
+        this.database = factory;
+    }
+
+    @JsonProperty("database")
+    public DataSourceFactory getDataSourceFactory() {
+        return database;
     }
 }

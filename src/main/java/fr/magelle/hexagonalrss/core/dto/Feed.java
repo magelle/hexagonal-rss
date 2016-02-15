@@ -1,4 +1,4 @@
-package fr.magelle.hexagonalrss.core.api.dto;
+package fr.magelle.hexagonalrss.core.dto;
 
 import java.time.LocalDateTime;
 
@@ -18,8 +18,13 @@ public class Feed {
     }
 
     public Feed(Long id, String name, String url) {
-        this.name = name;
-        this.url = url;
+        this(name, url);
+        this.id = id;
+    }
+
+    public Feed(Long id, String name, String url, LocalDateTime lastUpdate) {
+        this(id, name, url);
+        this.lastUpdate = lastUpdate;
     }
 
     public Long getId() {

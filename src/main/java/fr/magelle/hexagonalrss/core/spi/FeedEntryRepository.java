@@ -1,6 +1,6 @@
 package fr.magelle.hexagonalrss.core.spi;
 
-import fr.magelle.hexagonalrss.core.api.dto.FeedEntry;
+import fr.magelle.hexagonalrss.core.dto.FeedEntry;
 
 import java.util.Collection;
 import java.util.List;
@@ -8,7 +8,7 @@ import java.util.List;
 /**
  * Store FeedEntries
  */
-public interface FeedEntryCatalog {
+public interface FeedEntryRepository {
 
     FeedEntry save(FeedEntry feed);
     List<FeedEntry> save(FeedEntry ... feed);

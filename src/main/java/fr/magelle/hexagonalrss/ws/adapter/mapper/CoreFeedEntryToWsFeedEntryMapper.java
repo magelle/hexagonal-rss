@@ -8,7 +8,7 @@ import java.util.stream.Collectors;
 
 public class CoreFeedEntryToWsFeedEntryMapper {
 
-    public FeedEntry wsFeedEntryFromCoreFeedEntryMapper(fr.magelle.hexagonalrss.core.api.dto.FeedEntry coreFeedEntry) {
+    public FeedEntry wsFeedEntryFromCoreFeedEntryMapper(fr.magelle.hexagonalrss.core.dto.FeedEntry coreFeedEntry) {
         return new FeedEntry(
             coreFeedEntry.getId(),
             coreFeedEntry.getFeedId(),
@@ -19,7 +19,7 @@ public class CoreFeedEntryToWsFeedEntryMapper {
         );
     }
 
-    public List<FeedEntry> wsFeedEntriesFromCoreFeedEntriesMapper(List<fr.magelle.hexagonalrss.core.api.dto.FeedEntry> coreFeedEntries) {
+    public List<FeedEntry> wsFeedEntriesFromCoreFeedEntriesMapper(List<fr.magelle.hexagonalrss.core.dto.FeedEntry> coreFeedEntries) {
         return coreFeedEntries.stream()
                 .map(this::wsFeedEntryFromCoreFeedEntryMapper)
                 .collect(Collectors.toList());

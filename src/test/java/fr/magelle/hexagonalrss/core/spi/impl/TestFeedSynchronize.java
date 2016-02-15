@@ -1,7 +1,7 @@
 package fr.magelle.hexagonalrss.core.spi.impl;
 
 
-import fr.magelle.hexagonalrss.core.api.dto.FeedEntry;
+import fr.magelle.hexagonalrss.core.dto.FeedEntry;
 import fr.magelle.hexagonalrss.core.spi.FeedSynchronize;
 
 import java.time.LocalDateTime;

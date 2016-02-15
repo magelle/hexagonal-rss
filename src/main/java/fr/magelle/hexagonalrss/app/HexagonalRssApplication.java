@@ -6,12 +6,14 @@ import fr.magelle.hexagonalrss.core.api.service.FeedEntryService;
 import fr.magelle.hexagonalrss.core.api.service.FeedService;
 import fr.magelle.hexagonalrss.core.business.service.FeedEntryServiceImpl;
 import fr.magelle.hexagonalrss.core.business.service.FeedServiceImpl;
-import fr.magelle.hexagonalrss.core.spi.FeedCatalog;
-import fr.magelle.hexagonalrss.core.spi.FeedEntryCatalog;
+import fr.magelle.hexagonalrss.core.spi.FeedEntryRepository;
+import fr.magelle.hexagonalrss.core.spi.FeedRepository;
 import fr.magelle.hexagonalrss.core.spi.FeedSynchronize;
-import fr.magelle.hexagonalrss.datasource.InMemoryFeedCatalog;
-import fr.magelle.hexagonalrss.datasource.InMemoryFeedEntryCatalog;
-import fr.magelle.hexagonalrss.datasource.RssFeedSynchronize;
+import fr.magelle.hexagonalrss.datasource.db.adapter.FeedEntryRepositoryAdapter;
+import fr.magelle.hexagonalrss.datasource.db.adapter.FeedRepositoryAdapter;
+import fr.magelle.hexagonalrss.datasource.db.dao.FeedDAO;
+import fr.magelle.hexagonalrss.datasource.db.dao.FeedEntryDAO;
+import fr.magelle.hexagonalrss.datasource.rss.RssFeedSynchronize;
 import fr.magelle.hexagonalrss.ws.adapter.mapper.CoreFeedEntryToWsFeedEntryMapper;
 import fr.magelle.hexagonalrss.ws.adapter.mapper.CoreFeedToWsFeedMapper;
 import fr.magelle.hexagonalrss.ws.adapter.service.FeedEntryServiceAdapter;
@@ -19,8 +21,10 @@ import fr.magelle.hexagonalrss.ws.adapter.service.FeedServiceAdapter;
 import fr.magelle.hexagonalrss.ws.resource.FeedEntryResource;
 import fr.magelle.hexagonalrss.ws.resource.FeedResource;
 import io.dropwizard.Application;
+import io.dropwizard.jdbi.DBIFactory;
 import io.dropwizard.setup.Bootstrap;
 import io.dropwizard.setup.Environment;
+import org.skife.jdbi.v2.DBI;
 
 /**
  *
@@ -44,14 +48,20 @@ public class HexagonalRssApplication extends Application<HexagonalRssConfigurati
     @Override
     public void run(HexagonalRssConfiguration configuration, Environment environment) throws Exception {
 
+        // Database
+        final DBIFactory factory = new DBIFactory();
+        final DBI jdbi = factory.build(environment, configuration.getDataSourceFactory(), "h2");
+        final FeedDAO feedDAO = jdbi.onDemand(FeedDAO.class);
+        final FeedEntryDAO feedEntryDAO = jdbi.onDemand(FeedEntryDAO.class);
+
         // DataSources
-        final FeedCatalog feedCatalog = new InMemoryFeedCatalog();
-        final FeedEntryCatalog feedEntryCatalog = new InMemoryFeedEntryCatalog();
+        final FeedRepository feedRepository = new FeedRepositoryAdapter(feedDAO);
+        final FeedEntryRepository feedEntryRepository = new FeedEntryRepositoryAdapter(feedEntryDAO);
         final FeedSynchronize feedSynchronize = new RssFeedSynchronize();
 
         // Core services
-        final FeedService feedService = new FeedServiceImpl(feedCatalog);
-        final FeedEntryService feedEntryService = new FeedEntryServiceImpl(feedCatalog, feedEntryCatalog, feedSynchronize);
+        final FeedService feedService = new FeedServiceImpl(feedRepository);
+        final FeedEntryService feedEntryService = new FeedEntryServiceImpl(feedRepository, feedEntryRepository, feedSynchronize);
 
         // Object Mappers
         final CoreFeedToWsFeedMapper coreFeedToWsFeedMapper =  new CoreFeedToWsFeedMapper();

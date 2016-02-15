@@ -1,4 +1,4 @@
-package fr.magelle.hexagonalrss.datasource;
+package fr.magelle.hexagonalrss.datasource.rss;
 
 
 import com.rometools.rome.feed.synd.SyndContent;
@@ -6,7 +6,7 @@ import com.rometools.rome.feed.synd.SyndEntry;
 import com.rometools.rome.feed.synd.SyndFeed;
 import com.rometools.rome.io.SyndFeedInput;
 import com.rometools.rome.io.XmlReader;
-import fr.magelle.hexagonalrss.core.api.dto.FeedEntry;
+import fr.magelle.hexagonalrss.core.dto.FeedEntry;
 import fr.magelle.hexagonalrss.core.spi.FeedSynchronize;
 
 import java.net.URL;
