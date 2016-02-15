@@ -22,7 +22,7 @@ public interface FeedEntryDAO {
     @SqlBatch("insert into feed_entry(feed_id, title, content, url, is_read) " +
             "values(:feed_id, :title, :content, :url, :is_read)")
     @GetGeneratedKeys
-    List<Long> insert(@Bind("feed_id") List<Long> feedId,
+    void insert(@Bind("feed_id") List<Long> feedId,
                 @Bind("title") List<String> title,
                 @Bind("content") List<String> content,
                 @Bind("url") List<String> url,

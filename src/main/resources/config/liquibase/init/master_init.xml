@@ -10,10 +10,10 @@
             <column name="id" type="bigint" autoIncrement="true">
                 <constraints primaryKey="true" nullable="false"/>
             </column>
-            <column name="name" type="varchar(100)">
+            <column name="name" type="varchar(200)">
                 <constraints nullable="false" />
             </column>
-            <column name="url" type="varchar(100)">
+            <column name="url" type="varchar(200)">
                 <constraints nullable="false" />
             </column>
             <column name="last_update" type="timestamp">
@@ -28,13 +28,13 @@
             <column name="feed_id" type="bigint">
                 <constraints nullable="false" />
             </column>
-            <column name="title" type="varchar(100)">
+            <column name="title" type="varchar(200)">
                 <constraints nullable="false" />
             </column>
             <column name="content" type="clob">
                 <constraints nullable="true" />
             </column>
-            <column name="url" type="varchar(100)">
+            <column name="url" type="varchar(200)">
                 <constraints nullable="true" />
             </column>
             <column name="is_read" type="boolean">

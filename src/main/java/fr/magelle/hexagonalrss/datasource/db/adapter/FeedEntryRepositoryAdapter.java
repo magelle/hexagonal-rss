@@ -5,10 +5,10 @@ import fr.magelle.hexagonalrss.core.dto.FeedEntry;
 import fr.magelle.hexagonalrss.core.spi.FeedEntryRepository;
 import fr.magelle.hexagonalrss.datasource.db.dao.FeedEntryDAO;
 
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.List;
+import java.util.stream.Collectors;
 
 public class FeedEntryRepositoryAdapter implements FeedEntryRepository {
 
@@ -35,23 +35,27 @@ public class FeedEntryRepositoryAdapter implements FeedEntryRepository {
         return this.save(Arrays.asList(entries));
     }
 
-    @Override
+
     public List<FeedEntry> save(Collection<FeedEntry> entries) {
+        return entries.stream().map(this::save).collect(Collectors.toList());
+    }
+
+    /*@Override
+    public void save(Collection<FeedEntry> entries) {
         List<Long> feedIds = new ArrayList<>(entries.size());
         List<String> titles = new ArrayList<>(entries.size());
         List<String> contents = new ArrayList<>(entries.size());
         List<String> urls = new ArrayList<>(entries.size());
         List<Boolean> isReads = new ArrayList<>(entries.size());
         entries.forEach(entry -> {
-            feedIds.add(entry.getId());
+            feedIds.add(entry.getFeedId());
             titles.add(entry.getTitle());
             contents.add(entry.getContent());
             urls.add(entry.getUrl());
             isReads.add(entry.isRead());
         });
-        List<Long> ids = feedEntryDAO.insert(feedIds, titles, contents, urls, isReads);
-        return feedEntryDAO.findByIdIn(ids);
-    }
+        feedEntryDAO.insert(feedIds, titles, contents, urls, isReads);
+    }*/
 
     @Override
     public FeedEntry markAsReadById(Long entryId) {
