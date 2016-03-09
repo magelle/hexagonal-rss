@@ -14,7 +14,7 @@ import fr.magelle.hexagonalrss.datasource.db.adapter.FeedEntryRepositoryAdapter;
 import fr.magelle.hexagonalrss.datasource.db.adapter.FeedRepositoryAdapter;
 import fr.magelle.hexagonalrss.datasource.db.dao.FeedDAO;
 import fr.magelle.hexagonalrss.datasource.db.dao.FeedEntryDAO;
-import fr.magelle.hexagonalrss.datasource.rss.RssFeedSynchronize;
+import fr.magelle.hexagonalrss.datasource.rss.adapter.RssFeedSynchronize;
 import fr.magelle.hexagonalrss.ws.adapter.mapper.CoreFeedEntryToWsFeedEntryMapper;
 import fr.magelle.hexagonalrss.ws.adapter.mapper.CoreFeedToWsFeedMapper;
 import fr.magelle.hexagonalrss.ws.adapter.service.FeedEntryServiceAdapter;

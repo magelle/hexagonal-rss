@@ -1,4 +1,4 @@
-package fr.magelle.hexagonalrss.datasource.rss;
+package fr.magelle.hexagonalrss.datasource.rss.adapter;
 
 
 import com.rometools.rome.feed.synd.SyndContent;
