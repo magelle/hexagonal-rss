@@ -20,6 +20,7 @@ function getDefaultModules() {
       {
         test: /\.(js|jsx)$/,
         include: srcPath,
+        exclude: /(node_modules|bower_components)/,
         loader: 'eslint-loader'
       }
     ],

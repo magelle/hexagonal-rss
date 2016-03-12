@@ -2,5 +2,9 @@
   "name": "hexagonal-rss",
   "version": "0.0.0",
   "appPath": "src/main/webapp",
-  "testPath": "src/test/javascript"
+  "testPath": "src/test/javascript",
+  "dependencies": {
+    "director": "^1.2.8",
+    "classnames": "^2.2.3"
+  }
 }

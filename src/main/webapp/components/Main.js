@@ -1,23 +1,29 @@
 require('normalize.css');
 require('styles/App.css');
+require('styles/Todoapp.css');
 
 import React from 'react';
+import Todoapp from './Todoapp';
+import TodoModel from './TodoModel';
 
 let yeomanImage = require('../images/yeoman.png');
 
-class AppComponent extends React.Component {
+export default class AppComponent extends React.Component {
+
+  constructor() {
+    super();
+    this.model = new TodoModel('react-todos');
+    this.render = this.render.bind(this);
+    this.model.subscribe(this.render);
+  }
+
   render() {
     return (
       <div className="index">
         <img src={yeomanImage} alt="Yeoman Generator" />
-        <h1>TOTO</h1>
-        <div className="notice">Please edit <code>src/components/Main.js</code> to get started!</div>
+        <Todoapp model={this.model}/>
       </div>
     );
   }
+
 }
-
-AppComponent.defaultProps = {
-};
-
-export default AppComponent;
